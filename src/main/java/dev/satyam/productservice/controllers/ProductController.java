@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/products/")
+@RequestMapping("/products")
 public class ProductController {
  //   @Autowired
  // field injection - Not recommended
@@ -35,9 +35,10 @@ public class ProductController {
     public void deleteProductById(){
 
     }
-    @PostMapping("{id}")
-    public void createProduct(){
-
+    @PostMapping
+    public GenericProductDto createProduct(@RequestBody GenericProductDto product){
+            //System.out.println(product.getTitle());
+            return productService.createProduct(product);
     }
     @PutMapping("{id}")
     public void updateProductById(){

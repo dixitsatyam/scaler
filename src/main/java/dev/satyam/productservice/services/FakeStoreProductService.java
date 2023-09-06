@@ -12,9 +12,11 @@ import org.springframework.web.client.RestTemplate;
 public class FakeStoreProductService implements ProductService{
     RestTemplateBuilder restTemplateBuilder;
     private String getProductRequestUrl = "https://fakestoreapi.com/products/{id}";
+    private String createProductRequestUrl = "https://fakestoreapi.com/products";
     public FakeStoreProductService(RestTemplateBuilder restTemplateBuilder){
         this.restTemplateBuilder = restTemplateBuilder;
     }
+
     public GenericProductDto getProductById(Long id){
 
         RestTemplate restTemplate = restTemplateBuilder.build();
@@ -29,5 +31,14 @@ public class FakeStoreProductService implements ProductService{
         product.setTitle(fakeStoreProductDto.getTitle());
         product.setPrice(fakeStoreProductDto.getPrice());
         return product;
+    }
+
+    @Override
+    public GenericProductDto createProduct(GenericProductDto product) {
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        ResponseEntity<GenericProductDto> response = restTemplate.postForEntity(createProductRequestUrl,
+                product, GenericProductDto.class);
+
+        return response.getBody();
     }
 }

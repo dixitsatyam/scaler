@@ -3,6 +3,9 @@ package dev.satyam.productservice.services;
 import dev.satyam.productservice.dtos.GenericProductDto;
 import dev.satyam.productservice.models.Product;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 @Service("SelfProductServiceImpl")
 public class SelfProductServiceImpl implements ProductService{
     @Override
@@ -13,5 +16,10 @@ public class SelfProductServiceImpl implements ProductService{
     @Override
     public GenericProductDto createProduct(GenericProductDto product) {
             return null;
+    }
+
+    @Override
+    public List<GenericProductDto> getAllProducts() {
+        return null;
     }
 }

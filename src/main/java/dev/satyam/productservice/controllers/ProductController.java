@@ -1,10 +1,16 @@
 package dev.satyam.productservice.controllers;
 
 import dev.satyam.productservice.dtos.GenericProductDto;
+import dev.satyam.productservice.dtos.NotFoundExceptionDto;
+import dev.satyam.productservice.exceptions.NotFoundException;
 import dev.satyam.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 
@@ -30,12 +36,14 @@ public class ProductController {
     // localhost:8080/products/123
 
     @GetMapping("{id}")
-    public GenericProductDto getProductById(@PathVariable("id") Long id){
-           return productService.getProductById(id);
+    public GenericProductDto getProductById(@PathVariable("id") Long id) throws NotFoundException {
+       return productService.getProductById(id);
     }
-    @DeleteMapping("{id}")
-    public void deleteProductById(){
 
+    @DeleteMapping("{id}")
+    public ResponseEntity<GenericProductDto> deleteProductById(@PathVariable("id") Long id){
+       GenericProductDto product = productService.deleteProductById(id);
+       return new ResponseEntity<>(product, HttpStatus.OK);
     }
     @PostMapping
     public GenericProductDto createProduct(@RequestBody GenericProductDto product){

@@ -1,4 +1,4 @@
-package dev.satyam.productservice.dtos;
+package dev.satyam.productservice.thirdpartyclients.productservice.fakestore;
 
 import lombok.Getter;
 import lombok.Setter;

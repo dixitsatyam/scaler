@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -36,17 +37,17 @@ public class ProductserviceApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception{
 		Category category = new Category();
-		category.setName("samsung device");
+		category.setName("oppo device");
 //		Category savedCategory = categoryRepository.save(category);
 
 		Price price = new Price();
 		price.setCurrency("rupee");
-		price.setPrice(99000);
+		price.setPrice(20000);
 //		Price savedPrice = priceRepository.save(price);
 
 		Product product = new Product();
-		product.setTitle("samsung z-flip");
-		product.setDescription("samsung foldable");
+		product.setTitle("oppo v20");
+		product.setDescription("china mobile");
 		product.setPrice(price);
 		product.setCategory(category);
 		productRepository.save(product);
@@ -57,7 +58,23 @@ public class ProductserviceApplication implements CommandLineRunner {
 //		for(Product product1:category1.get().getProducts()){
 //			System.out.println("product :"+ product1.getTitle());
 //		}
-		productRepository.deleteById(UUID.fromString("275440af-0e8d-43fe-a79e-acfa45030391"));
+		//productRepository.deleteById(UUID.fromString("275440af-0e8d-43fe-a79e-acfa45030391"));
+		Product p = productRepository.findByTitle("samsung s23 ultra");
+		System.out.println("prod desc is :"+ p.getDescription());
+//		List<Product> products = productRepository.findAllByPrice_Price(99000);
+//		System.out.println("all product of price 99000 are");
+//		for(Product product1: products){
+//			System.out.println("product title:"+ product1.getTitle());
+//		}
+
+		List<Product> products = productRepository.findAllByTitle("samsung z-flip");
+		System.out.println("all product of title samsung z-flip are");
+		for(Product product1: products){
+			System.out.println("product description:"+ product1.getDescription());
+		}
+		//productRepository.deleteAllByTitle("samsung z-flip");
+		// not able to impliment this , try again later
+
 	}
 
 }

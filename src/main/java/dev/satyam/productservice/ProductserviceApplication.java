@@ -37,18 +37,18 @@ public class ProductserviceApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception{
 		Category category = new Category();
 		category.setName("samsung device");
-		Category savedCategory = categoryRepository.save(category);
+//		Category savedCategory = categoryRepository.save(category);
 
 		Price price = new Price();
 		price.setCurrency("rupee");
 		price.setPrice(99000);
-		Price savedPrice = priceRepository.save(price);
+//		Price savedPrice = priceRepository.save(price);
 
 		Product product = new Product();
 		product.setTitle("samsung z-flip");
 		product.setDescription("samsung foldable");
-		product.setPrice(savedPrice);
-		product.setCategory(savedCategory);
+		product.setPrice(price);
+		product.setCategory(category);
 		productRepository.save(product);
 //		Optional<Category> category1 = categoryRepository.findById(UUID.fromString("11f8b66f-79e7-4f05-a9e0-665d5a8c9fd4"));
 //		System.out.println("Category name is :"+ category1.get().getName());
@@ -57,6 +57,7 @@ public class ProductserviceApplication implements CommandLineRunner {
 //		for(Product product1:category1.get().getProducts()){
 //			System.out.println("product :"+ product1.getTitle());
 //		}
+		productRepository.deleteById(UUID.fromString("275440af-0e8d-43fe-a79e-acfa45030391"));
 	}
 
 }

@@ -3,6 +3,7 @@ package dev.satyam.productservice.controllers;
 import dev.satyam.productservice.dtos.GenericProductDto;
 import dev.satyam.productservice.dtos.NotFoundExceptionDto;
 import dev.satyam.productservice.exceptions.NotFoundException;
+import dev.satyam.productservice.models.Product;
 import dev.satyam.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,7 +22,7 @@ public class ProductController {
  // field injection - Not recommended
     private ProductService productService;
     //constructor injection
-    public ProductController(@Qualifier("FakeStoreProductService") ProductService productService){
+    public ProductController(@Qualifier("SelfProductServiceImpl") ProductService productService){
         this.productService = productService;
     }
     // setter injection - Not recommended
@@ -41,17 +42,18 @@ public class ProductController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<GenericProductDto> deleteProductById(@PathVariable("id") Long id){
+    public void deleteProductById(@PathVariable("id") Long id){
        GenericProductDto product = productService.deleteProductById(id);
-       return new ResponseEntity<>(product, HttpStatus.OK);
+       //return new ResponseEntity<>(product, HttpStatus.OK);
     }
     @PostMapping
-    public GenericProductDto createProduct(@RequestBody GenericProductDto product){
+    public void createProduct(@RequestBody GenericProductDto product){
             //System.out.println(product.getTitle());
-            return productService.createProduct(product);
+            //return productService.createProduct(product);
+       productService.createProduct(product);
     }
     @PutMapping("{id}")
-    public void updateProductById(){
-
+    public void updateProductById(@RequestBody GenericProductDto genericProductDto,@PathVariable("id") Long id){
+       productService.updateProductById(id, genericProductDto);
     }
 }

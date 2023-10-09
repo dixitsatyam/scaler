@@ -49,4 +49,8 @@ public class FakeStoreProductService implements ProductService{
     public GenericProductDto deleteProductById(Long id){
         return convertFakeStoreProductToGenericProduct(fakeStoreProductServiceClient.deleteProductById(id));
     }
+
+    public void updateProductById(Long id, GenericProductDto genericProductDto){
+
+    }
 }

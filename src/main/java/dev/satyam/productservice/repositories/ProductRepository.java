@@ -3,6 +3,7 @@ package dev.satyam.productservice.repositories;
 import dev.satyam.productservice.models.Product;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -25,4 +26,12 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
     @Query(value = "delete from product where title = :title", nativeQuery = true)
     public List<Product> deleteAllByTitle(String title);
 
+    List<Product> findAll();
+
+    Product getProductById(Long id);
+
+    void deleteProductById(Long id);
+    @Modifying
+    @Query(value = "update product p set p.title = :title, p.description = :description where p.id = :id",nativeQuery = true)
+    void setProductById(Long id, String title, String description);
 }

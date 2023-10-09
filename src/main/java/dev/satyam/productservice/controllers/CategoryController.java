@@ -1,5 +1,6 @@
 package dev.satyam.productservice.controllers;
 
+import dev.satyam.productservice.dtos.CategoryDto;
 import dev.satyam.productservice.dtos.ProductDto;
 import dev.satyam.productservice.models.Category;
 import dev.satyam.productservice.models.Product;
@@ -24,11 +25,11 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/{uuid}")
-    public List<ProductDto> getCategory(@PathVariable("uuid") String uuid){
+    @GetMapping("/{id}")
+    public List<ProductDto> getCategory(@PathVariable("id") Long id){
         // using ProductDto bcs of infinite recursion issue
         // product contains category and category contains list of products , this will lead to issue
-        Category category = categoryService.getCategory(uuid);
+        Category category = categoryService.getCategory(id);
         List<Product> products = category.getProducts();
         // here the db query will be performed to fetch products of perticular category due to LAZY loading
         List<ProductDto> productDtos = new ArrayList<>();
@@ -41,5 +42,17 @@ public class CategoryController {
             productDtos.add(productDto);
         }
         return productDtos;
+    }
+
+    @GetMapping
+    public List<CategoryDto> getAllCategories(){
+        List<Category> categories = categoryService.getAllCategories();
+        List<CategoryDto> categoryDtos = new ArrayList<>();
+        for(Category category: categories){
+            CategoryDto categoryDto = new CategoryDto();
+            categoryDto.setName(category.getName());
+            categoryDtos.add(categoryDto);
+        }
+        return categoryDtos;
     }
 }

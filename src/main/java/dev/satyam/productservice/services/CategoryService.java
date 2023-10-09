@@ -6,5 +6,7 @@ import dev.satyam.productservice.models.Product;
 import java.util.List;
 
 public interface CategoryService {
-    Category getCategory(String uuid);
+    Category getCategory(Long id);
+
+    List<Category> getAllCategories();
 }

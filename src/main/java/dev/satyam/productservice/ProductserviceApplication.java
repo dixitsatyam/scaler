@@ -33,23 +33,22 @@ public class ProductserviceApplication implements CommandLineRunner {
 	public static void main(String[] args) {
 
 		SpringApplication.run(ProductserviceApplication.class, args);
-
 	}
 	@Transactional
 	@Override
 	public void run(String... args) throws Exception{
 //		Category category = new Category();
-//		category.setName("vivo device");
+//		category.setName("apple mobile");
 ////		Category savedCategory = categoryRepository.save(category);
 //
 //		Price price = new Price();
 //		price.setCurrency("rupee");
-//		price.setPrice(20000);
-////		Price savedPrice = priceRepository.save(price);
-//
+//		price.setPrice(40000);
+//////		Price savedPrice = priceRepository.save(price);
+////
 //		Product product = new Product();
-//		product.setTitle("vivo v30");
-//		product.setDescription("china mobile");
+//		product.setTitle("iphone 12");
+//		product.setDescription("lower premium phone");
 //		product.setPrice(price);
 //		product.setCategory(category);
 //		productRepository.save(product);
@@ -78,17 +77,17 @@ public class ProductserviceApplication implements CommandLineRunner {
 //		// not able to impliment this , try again later
 //
 
-        Optional<Category> category1= categoryRepository.findById(UUID.fromString("1f28e029-4b03-4720-bc8b-d2fa15232a65"));
-        //in this call only id and name will be fetched, not list of prod bcs of LAZY loading
-		// products will be fetched only if getProduct() will be called
-        //
-		List<Product> products1 = category1.get().getProducts();
-		// in this call db query to fetch all products belong to a category will be made
-		//@Transaction is must here in LAZY loading, left join is used in the query here
-		System.out.println("list of all products in lazy loading is");
-		for(Product product1 : products1){
-			System.out.println("product title: "+product1.getTitle());
-		}
+//        Optional<Category> category1= categoryRepository.findById(UUID.fromString("1f28e029-4b03-4720-bc8b-d2fa15232a65"));
+//        //in this call only id and name will be fetched, not list of prod bcs of LAZY loading
+//		// products will be fetched only if getProduct() will be called
+//        //
+//		List<Product> products1 = category1.get().getProducts();
+//		// in this call db query to fetch all products belong to a category will be made
+//		//@Transaction is must here in LAZY loading, left join is used in the query here
+//		System.out.println("list of all products in lazy loading is");
+//		for(Product product1 : products1){
+//			System.out.println("product title: "+product1.getTitle());
+//		}
 	}
 
 }
